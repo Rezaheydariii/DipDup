@@ -55,27 +55,21 @@ curl -Lsf https://dipdup.io/install.py | python3
 ```
 ![Capture](https://github.com/Rezaheydariii/DipDup/assets/140112620/25355306-3c8e-4b6e-91fe-a92fb6553704)
 
-If you are unable to run DipDup, please check your Virtual Environment again:
+Now, For educational purposes, we'll create a project from scratch
+Well, at this stage, we're creating a raw project. Let's move forward to understand what's going on.
 ```
-source myenv/bin/activate
-pip show dipdup
-```
-If it's installed, you should see details about the package.
-```
-echo $PATH
-```
-Reinstall DipDup
-```
-pip uninstall dipdup
-pip install dipdup
-```
-Alternative: Use pipx:
-```
-pip install pipx
-pipx install dipdup
 dipdup new
 ```
-Now, For educational purposes, we'll create a project from scratch
+* so choose [none]
+#Choose a project template:
+demo_blank  Empty config for a fresh start
+next:
+#Enter project name (the name will be used for folder name and package name)
+
+#Choose PostgreSQL version. Try TimescaleDB when working with time series:
+
+
+
 
 
 
