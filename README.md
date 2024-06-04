@@ -169,6 +169,7 @@ async def on_output_transaction(
 dipdup run
 ```
 
+
 خروجی بدین شکل خواهدبود:
 
 ![Capture](https://github.com/Rezaheydariii/DipDup/assets/140112620/60d77c03-ad52-40fe-83be-de36111b2187)
