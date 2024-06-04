@@ -66,7 +66,107 @@ demo_blank  Empty config for a fresh start
 next:
 #Enter project name (the name will be used for folder name and package name)
 
-#Choose PostgreSQL version. Try TimescaleDB when working with time series:
+#Choose PostgreSQL version. Try TimescaleDB when working with time series ...
+![all](https://github.com/Rezaheydariii/DipDup/assets/140112620/3f84c2c8-90ff-4d65-84cf-42c6570c5d2a)
+
+خب! از اینجا به بعد ترجیح می د که فارسی جلو بریم. حالاکه یک پروژه با نام مدنظرتون و کاملا خام درست کردید قراره با یکسری 
+دیتا تمرین کنیم...
+اول از همه وارد دایرکتوری پروژه بشید.
+```
+cd project name
+```
+حالا برا اینکه بدونید جه محتوایی توی این دایرکتوری دارید یکبار ls رو اجرا کنید.
+در این مرحله قراره محتوای فایل dipdup.yaml رو با مقادیر تمرینی تغییر بدیم.
+```
+nano dipdup.yaml
+```
+کد زیر رو جایگزین محتوای قبلی کنید.
+```
+spec_version: 2.0
+package: kakarot
+
+datasources:
+  mainnet_node:
+    kind: evm.node
+    url: https://sepolia-rpc.kakarot.org
+
+contracts:
+  some_contract:
+    kind: evm
+    address: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+    typename: not_typed
+
+indexes:
+  evm_index:
+    kind: evm.subsquid.transactions
+    datasource: mainnet_node
+    handlers:
+      - callback: on_output_transaction
+        from: some_contract
+    last_level: 4631
+
+
+database:
+  kind: sqlite
+  path: data/kakarot.sqlite
+```
+C + X >> Y >> inter
+حالا باید دایرکتوری رو بروز کنیم:
+```
+dipdup init
+```
+حالا دوباره در دایرکتوری کامند ls رو اجرا کنید... فولدری به نام models دارید. با دستور نانو فایل داخل رو باز کنید.... 
+```
+nano models/__init__.py
+```
+کدهای زیر رو جایگزین کدهای داخل فایل __init__.py کنید:
+```
+from dipdup import fields
+from dipdup.models import Model
+
+class Transaction(Model):
+    hash = fields.TextField(pk=True)
+    block_number = fields.IntField()
+    from_ = fields.TextField()
+    to = fields.TextField(null=True)
+
+    created_at = fields.DatetimeField(auto_now_add=True)
+    ```
+دوباره به دایرکتوری پروژه خودتون برگردید و فایل هندلر رو باز کنید.
+```
+nano handlers/on_output_transaction.py
+```
+کد زیر رو جایگزین کدهای داخل فایل on_output_transaction.py  کنید...
+حتمن یادتون باشه که نام پروژه شما چیه "kakarot" این نام به صورت پیشفرض قرار داده شده و باید اسم پروژه تون رو اینجا قرار بدید.
+```
+from dipdup.context import HandlerContext
+from dipdup.models.evm_node import EvmNodeTransactionData
+from dipdup.models.evm_subsquid import SubsquidTransactionData
+
+from kakarot import models as models
+
+async def on_output_transaction(
+    ctx: HandlerContext,
+    transaction: SubsquidTransactionData | EvmNodeTransactionData,
+) -> None:
+    await models.Transaction(
+        hash=transaction.hash,
+        block_number=transaction.block_number,
+        from_=transaction.from_,
+        to=transaction.to,
+    ).save()
+```
+حلا میتونید پروژه رو ران کنید با کامند...
+```
+dipdup run
+```
+خروجی بدین شکل خواهدبود:
+
+![Capture](https://github.com/Rezaheydariii/DipDup/assets/140112620/60d77c03-ad52-40fe-83be-de36111b2187)
+
+
+
+
 
 
 
