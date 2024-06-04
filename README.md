@@ -71,7 +71,7 @@ next:
 
 خب! از اینجا به بعد ترجیح می د که فارسی جلو بریم. حالاکه یک پروژه با نام مدنظرتون و کاملا خام درست کردید قراره با یکسری 
 دیتا تمرین کنیم...
-اول از همه وارد دایرکتوری پروژه بشید.
+اول از همه وارد دایرکتوری پروژه بشید. project name یعنی اسم پروزه خودتون
 ```
 cd project name
 ```
@@ -119,7 +119,7 @@ dipdup init
 ```
 nano models/__init__.py
 ```
-کدهای زیر رو جایگزین کدهای داخل فایل __init__.py کنید:
+کدهای زیر رو جایگزین کدهای داخل فایل  کنید:
 ```
 from dipdup import fields
 from dipdup.models import Model
@@ -136,8 +136,9 @@ class Transaction(Model):
 ```
 nano handlers/on_output_transaction.py
 ```
-کد زیر رو جایگزین کدهای داخل فایل on_output_transaction.py  کنید...
+کد زیر رو جایگزین کدهای داخل فایل کنید...
 حتمن یادتون باشه که نام پروژه شما چیه "kakarot" این نام به صورت پیشفرض قرار داده شده و باید اسم پروژه تون رو اینجا قرار بدید.
+
 ```
 from dipdup.context import HandlerContext
 from dipdup.models.evm_node import EvmNodeTransactionData
