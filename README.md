@@ -112,14 +112,18 @@ database:
 ```
 C + X >> Y >> inter
 حالا باید دایرکتوری رو بروز کنیم:
+
 ```
 dipdup init
 ```
+
 حالا دوباره در دایرکتوری کامند ls رو اجرا کنید... فولدری به نام models دارید. با دستور نانو فایل داخل رو باز کنید.... 
 ```
 nano models/__init__.py
 ```
+
 کدهای زیر رو جایگزین کدهای داخل فایل  کنید:
+
 ```
 from dipdup import fields
 from dipdup.models import Model
@@ -133,9 +137,11 @@ class Transaction(Model):
     created_at = fields.DatetimeField(auto_now_add=True)
     ```
 دوباره به دایرکتوری پروژه خودتون برگردید و فایل هندلر رو باز کنید.
+
 ```
 nano handlers/on_output_transaction.py
 ```
+
 کد زیر رو جایگزین کدهای داخل فایل کنید...
 حتمن یادتون باشه که نام پروژه شما چیه "kakarot" این نام به صورت پیشفرض قرار داده شده و باید اسم پروژه تون رو اینجا قرار بدید.
 
@@ -157,10 +163,12 @@ async def on_output_transaction(
         to=transaction.to,
     ).save()
 ```
+
 حلا میتونید پروژه رو ران کنید با کامند...
 ```
 dipdup run
 ```
+
 خروجی بدین شکل خواهدبود:
 
 ![Capture](https://github.com/Rezaheydariii/DipDup/assets/140112620/60d77c03-ad52-40fe-83be-de36111b2187)
